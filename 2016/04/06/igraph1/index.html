@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>R包igraph的使用 | nichunquan</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="nichunquan">
+    <meta name="author" content="nichunquan">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="nichunquan" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/cpp/" class="animsition-link">cpp<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/data-mining/" class="animsition-link">data mining<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/machine-learning/" class="animsition-link">machine learning<small>(16)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://cse.seu.edu.cn/CSE/UI/" class="animsition-link">CS of SEU</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/nichunquan/" class="animsition-link">CSDN</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">nichunquan</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/1.jpg) no-repeat center center fixed">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>SOMETHING ABOUT <span> Mechine Learning </span> , WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-04-06T12:00:00.000Z" itemprop="datePublished">
+          2016-04-06
+      </time>
+    
+    
+    | 
+    <a href='/tags/machine-learning/'>machine learning</a>
+    
+    
+</span>
+                <h1>R包igraph的使用</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>python 和 R 中都有 igraph 这个包，但看到网上说python中缺少部分函数（比如aging method），所以本文使用R对igraph里面的部分函数做下实验。顺便学习下关于图论里面的一些定理</p>
+<p>####1.生成一个1000个节点的无向随机图，边概率分别是0.01,0.05,0.1:（就是任意两个节点间有边的概率），判断这些图是不是连通图，并求其直径。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(igraph)</div><div class="line">p &lt;- c(<span class="number">0.01</span>,<span class="number">0.05</span>,<span class="number">0.1</span>)</div><div class="line">sig &lt;- c(<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>)</div><div class="line">col &lt;-c(<span class="string">"red"</span>,<span class="string">"green"</span>,<span class="string">"blue"</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">1</span>:<span class="number">3</span>)&#123;</div><div class="line">  <span class="keyword">for</span>(j <span class="keyword">in</span> <span class="number">1</span>:<span class="number">100</span>)&#123;</div><div class="line">    graph&lt;-erdos.renyi.game(<span class="number">1000</span>,p[i])</div><div class="line">    <span class="keyword">if</span>(sig[i])&#123;</div><div class="line">      d&lt;-degree.distribution(graph)</div><div class="line">      sig[i] = <span class="number">0</span></div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">      d&lt;- d + degree.distribution(graph)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  d = d/<span class="number">100</span></div><div class="line">  plot(d, type=<span class="string">"o"</span>, col=col[i],main=paste(<span class="string">"Density function for graph"</span>,i,<span class="string">"(with p="</span>,p[i],<span class="string">")"</span>),xlab=<span class="string">"degree"</span>,ylab=<span class="string">"Probability Density"</span>)</div><div class="line"> </div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">	</div><div class="line">connect_ &lt;- c(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)</div><div class="line">diameter_ &lt;- c(<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>)</div><div class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">1</span>:<span class="number">3</span>)&#123;</div><div class="line">  <span class="keyword">for</span>(j <span class="keyword">in</span> <span class="number">1</span>:<span class="number">100</span>)&#123;</div><div class="line">    graph&lt;-erdos.renyi.game(<span class="number">1000</span>,p[i])</div><div class="line">    <span class="keyword">if</span>(is.connected(graph))&#123;connect_[i]=connect_[i]+<span class="number">1</span>&#125;</div><div class="line">    diameter_[i] = diameter_[i]+ diameter(graph)</div><div class="line">  &#125;</div><div class="line">  diameter_[i] =  diameter_[i]/<span class="number">100</span></div><div class="line">  connect_[i] = connect_[i]/<span class="number">100</span></div><div class="line">  cat(<span class="string">"when p ="</span>, p[i],<span class="string">",it has probability "</span>,connect_[i],<span class="string">"the network is connected. "</span>)</div><div class="line">  cat(<span class="string">"Diameter for this network: "</span>,diameter_[i],<span class="string">'\n'</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<pre><code>when p = 0.01 ,it has probability  0.93 the network is connected. Diameter for this network:  5.38 
+when p = 0.05 ,it has probability  1 the network is connected. Diameter for this network:  3 
+when p = 0.1 ,it has probability  1 the network is connected. Diameter for this network:  3
+</code></pre><p><img src="http://i1064.photobucket.com/albums/u366/cccoder/1a_p0.01_zpsttzytmnt.png" alt="1"><br><img src="http://i1064.photobucket.com/albums/u366/cccoder/1a_p0.05_zpswfbu7elw.png" alt="1"><br><img src="http://i1064.photobucket.com/albums/u366/cccoder/1a_p0.1_zpszyh7fgas.png" alt="1"></p>
+<p><strong>erdos.renyi.game()</strong> 就是这样一个随机构造图的函数，第一个参数是顶点个数，第二个参数可以是一个概率（表示随机两点之间有边的概率）或者是一个整数值，表示总共有多少条边，还有一个默认参数directed = FALSE，如果为TRUE则是有向图。</p>
+<p><strong>degree.distribution()</strong> 就是求一个图中度的分布函数如上面三幅图可见一般度就集中在N*P那边。</p>
+<p><strong>is.connected()</strong> 和 <strong>diameter()</strong> 分别求图是否是连通图，以及图的半径。</p>
+<p>对这个做一个延伸，到底什么时候这个网络是不连通的呢？看到当p = 0.01时并不是所有的图都是连通的了，那有没有一个具体的值，使得当P&gt;Pr时，是连通图，P&lt;Pr时是非连通图？</p>
+<p>这里我们用代码去夹逼这个值，我们从0.05作为初始值，以0.0001为步长，不断去计算连通性，计算出临界值，重复50次</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">p = <span class="number">0.05</span>     </div><div class="line">	p_c = <span class="number">0</span></div><div class="line">	iter = <span class="number">0.0001</span></div><div class="line">	<span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">1</span>:<span class="number">50</span>)&#123;</div><div class="line">	  <span class="keyword">while</span>(<span class="number">1</span>)&#123;</div><div class="line">	    graph&lt;-erdos.renyi.game(<span class="number">1000</span>,p)</div><div class="line">	    <span class="keyword">if</span>(is.connected(graph))&#123;</div><div class="line">	      p = p - iter</div><div class="line">	    &#125;<span class="keyword">else</span>&#123;</div><div class="line">	      p_c = p_c + p</div><div class="line">	      <span class="keyword">break</span></div><div class="line">	    &#125;</div><div class="line">	  &#125;</div><div class="line">	&#125;</div><div class="line">	p_c = p_c /<span class="number">50</span></div><div class="line">	</div><div class="line">	cat(<span class="string">"when p &lt; "</span>,p_c,<span class="string">"the generated random networks are disconnected, and when p &gt; "</span>,p_c,<span class="string">"the generated random networks are connected"</span>)</div></pre></td></tr></table></figure>
+<pre><code>when p &lt;  0.006976 the generated random networks are disconnected, and when p &gt;  0.006976 the generated random networks are connected
+</code></pre><p>那么这个值究竟是不是定的，以及是怎么定下来的？</p>
+<p>可以参考<a href="http://en.wikipedia.org/wiki/Erd%C5%91s%E2%80%93R%C3%A9nyi_model" target="_blank" rel="external">随机图的维基百科</a>，可以看到这个定值其实就是<strong>ln(N)/N</strong> 所以这里N=1000结果就是 <strong>0.00691</strong> 和刚刚模拟的 <strong>0.006976</strong> 很相近，这个<strong>ln(N)/N</strong> 是如何得来的？</p>
+<p>首先孤立点的概率是<img src="http://i1064.photobucket.com/albums/u366/cccoder/formula1_zpsygroqqct.jpg" alt="1"></p>
+<p>然后求孤立点个数的表达式，并令N趋于无穷可以得到<img src="http://i1064.photobucket.com/albums/u366/cccoder/formula2_zpsnwscmolq.jpg" alt="2"></p>
+<p>这里在令n=1即可得到P的值为<strong>ln(N)/N</strong></p>
+<p>####2.生成一个1000个节点的长尾分布图，判断这些图是不是连通图，并求其直径。</p>
+<p>这里我们要使用一个函数 <strong>barabasi.game()</strong> 这个函数是一个叫 Barabasi-Albert模型的实现，是1999年发表在science上的一篇文章提出的一种随机图生成方法，主要见于电影演员的人际关系网、万维网的网页和美国西部电力节点网等等。有时这种网络又称作无标度网络。服从的是幂律的分布。<br>这种网络的特点是：</p>
+<p><strong>成长性</strong>：有别于节点数量固定的方式，BA模型从一张小的网络图开始，逐渐增加节点。</p>
+<p><strong>优先连接性</strong>：每当一条新的边被创建，它总是更倾向于连接度数很大的节点，这种 <a href="http://baike.baidu.com/link?url=5rLZ7suohu8ERKRZ8xaBBz1fDM95jJPYVkAuu1TzLs_uFQ369Fggm5Vj5ViuaATRBZefhS_t7yH2JdWRDZOMdxrdPCVMNUL_oOnJ7l7aJbu" target="_blank" rel="external"><strong>“马太效应”</strong></a> 正是许多实践网络的特征。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(<span class="string">"igraph"</span>)</div><div class="line"></div><div class="line">graph&lt;- barabasi.game(<span class="number">1000</span>,directed=<span class="literal">FALSE</span>)</div><div class="line">d&lt;-degree.distribution(graph)</div><div class="line">plot(d, main=<span class="string">'Degree Distribution'</span>,xlab=<span class="string">"degree"</span>,ylab=<span class="string">"density"</span>)</div><div class="line"></div><div class="line"></div><div class="line">connectedness=diameter_=numeric(<span class="number">0</span>)</div><div class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:<span class="number">100</span>)&#123;</div><div class="line">  g = barabasi.game(<span class="number">1000</span>,directed=<span class="literal">FALSE</span>)</div><div class="line">  connectedness = c(connectedness, is.connected(g))</div><div class="line">  diameter_ = c(diameter_, diameter(g))</div><div class="line">&#125;</div><div class="line"></div><div class="line">Dia_avg = mean(diameter_)</div><div class="line">cat(<span class="string">"the average diameter of network is"</span>,Dia_avg,<span class="string">'\n'</span>)</div><div class="line">con_avg = mean(connectedness)</div><div class="line">cat(<span class="string">"it has probability "</span>,con_avg ,<span class="string">"the network is connected."</span>,<span class="string">'\n'</span>)</div></pre></td></tr></table></figure>
+<p><img src="http://i1064.photobucket.com/albums/u366/cccoder/2a_zpsct49jpci.png" alt="1"></p>
+<pre><code>the average diameter of network is 20.11 
+it has probability  1 the network is connected. 
+</code></pre><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">struct = fastgreedy.community(graph)</div><div class="line">mod = modularity(struct)</div><div class="line">cat(<span class="string">"the modularity of this 1000 nodes network is "</span>,mod,<span class="string">'\n'</span>)</div></pre></td></tr></table></figure>
+<pre><code>the modularity of this 1000 nodes network is  0.9334264
+</code></pre><p>这里主要看igraph里面的两个函数 <strong>fastgreedy.community()</strong> 和 <strong>modularity()</strong><br>前一个函数是使用快速贪心算法来进行 <strong>社区发现</strong> 其实社区发现是一个聚类算法，一般有用GN分裂算法划分网络社团。<br>后一个函数定义为图中所有连接社团内部边的比例与社团间连边的比例的差值。这里的Q定义为 ：</p>
+<p><img src="http://i1064.photobucket.com/albums/u366/cccoder/formula3_zpsjpejuoig.jpg" alt=""></p>
+<p>我们直观地看下由 <strong>barabasi.game()</strong> 生成的图，可见确实其社区内部边较为密集，而社区之间的边稀疏。</p>
+<p><img src="http://i1064.photobucket.com/albums/u366/cccoder/pic1_zpsxmcx5ry0.png" alt=""></p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/06/01/类别不平衡/" style="float: left;">
+        ← R语言，数据类别不平衡的一种处理方法
+    </a>
+    
+    
+    <a class="pull-right" href="/2016/02/19/文本分类（NB和SVM）/">
+        python 文本分类系列（1）——naive bayes 和 SVM多分类器 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/04/06/igraph1/" data-title="R包igraph的使用" data-url="http://yoursite.com/2016/04/06/igraph1/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"nichunquan"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By nichunquan. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

@@ -238,11 +238,11 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2 opening-statement">
                 <div class="col-md-4">
-                    <h3><a href="/2016/06/14/热力图/">基于R语言的热度图（heatmap）分析美国参议院投票两极化程度</a></h3>
+                    <h3><a href="/2015/10/19/多元线性回归/">多元线性回归</a></h3>
                     <span>
                         <span class="post-meta">
-      <time datetime="2016-06-14T12:00:00.000Z" itemprop="datePublished">
-          2016-06-14
+      <time datetime="2015-10-19T02:00:00.000Z" itemprop="datePublished">
+          2015-10-19
       </time>
     
     
@@ -256,359 +256,340 @@
                 <div class="col-md-8">
                     <p>
                       
-                        热度图是什么，有什么好处，R中如何使用？图，总是为了我们更直观地去理解问题，热度图也不例外，它让我们能够看清楚在哪一块数据值比较高，哪块比较低，这样也就可以看出其他一些信息，比如，某些块数据可能聚集了，在这些直观信息帮助下，可以指导我们下一步做什么处理，做聚类？数据特征降维？下面主要结合美国选举数据进行一些分析。
-数据背景，美国主要有两个党派： 民主党和共和党，在进行选举的时候采用唱名投票（Roll call vote），数据从102届
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2016/06/14/热力图/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2016/06/01/类别不平衡/">R语言，数据类别不平衡的一种处理方法</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2016-06-01T09:30:00.000Z" itemprop="datePublished">
-          2016-06-01
-      </time>
-    
-    
-    | 
-    <a href='/tags/machine-learning/'>machine learning</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        数据背景是从stackoverflow招聘页提取的数据，所有条目的特征都是哑变量，预测目标是所在岗位是否是Data Scientist.数据下载
-这个数据集的特点就是类别标签极不平衡，（DS和nonDS大概是1：4）而处理类别标签不平衡的一般方法是：upsampling或者downsampling，还有就是本文使用的代价敏感训练。
-这里使用是时一个比较好用的包-caret， 首先构造一个代价矩阵作为在randomforest里面的par
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2016/06/01/类别不平衡/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2016/04/06/igraph1/">R包igraph的使用</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2016-04-06T12:00:00.000Z" itemprop="datePublished">
-          2016-04-06
-      </time>
-    
-    
-    | 
-    <a href='/tags/machine-learning/'>machine learning</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        python 和 R 中都有 igraph 这个包，但看到网上说python中缺少部分函数（比如aging method），所以本文使用R对igraph里面的部分函数做下实验。顺便学习下关于图论里面的一些定理
-####1.生成一个1000个节点的无向随机图，边概率分别是0.01,0.05,0.1:（就是任意两个节点间有边的概率），判断这些图是不是连通图，并求其直径。
-12345678910111213141516171819202122
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2016/04/06/igraph1/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2016/02/19/文本分类（NB和SVM）/">python 文本分类系列（1）——naive bayes 和 SVM多分类器</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2016-02-19T03:00:00.000Z" itemprop="datePublished">
-          2016-02-19
-      </time>
-    
-    
-    | 
-    <a href='/tags/machine-learning/'>machine learning</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        ##文本多分类
-这里主要介绍三种方法：1)朴素贝叶斯 , 2)一对一SVM , 3)一对多SVM
-1. 朴素贝叶斯
-朴素贝叶斯方法具有容易实现，运行速度快的特点，被广泛在文本多分类器中使用，其中有比较常见的模型就是，多项式模型和伯努利模型(前者以单词为粒度，后者以文件为粒度)在这里我们用多项式模型来运行起这个python代码
-怎么理解这个模型？通俗说就是，单词tk在证明d属于类c上提供了多大的证据，这个证据怎么表示？
-p(tk|c)=(
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2016/02/19/文本分类（NB和SVM）/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2015/12/12/R,C++ and Rcpp/">R, C++ and Rcpp</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2015-12-12T12:00:00.000Z" itemprop="datePublished">
-          2015-12-12
-      </time>
-    
-    
-    | 
-    <a href='/tags/machine-learning/'>machine learning</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        ###Rcpp
-1. 为什么使用Rcpp
-R作为解释性的语言，缺点就是运行速度慢，特别是在有loop的时候。而编译性的语言在这方面有着自身的优势（先全部编译，然后链接，装载，以后就不用解释了，速度就相对较快）
-2. Rcpp的两种植入方式
-1）.先编写一个cpp文件，然后再R语句中调用这个cpp文件中的函数
+                        ###1.多元线性回归模型假定被解释变量Y和多个解释变量X1,X2,X3,…,Xk之间具有线性关系，是解释变量的线性函数，则称为多元线性回归模型。
+对于n组观测值,写成方程组的形式为：
 
-这里的cpp文件我们还是使用前面说过的mysweep方法来举例子，转mysweep ，需要注意的是，这里格式中一定要有// [[
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2015/12/12/R,C++ and Rcpp/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2015/11/13/Adaboost的python和R语言的实现/">Adaboost的Python和R语言实现</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2015-11-13T12:00:00.000Z" itemprop="datePublished">
-          2015-11-13
-      </time>
-    
-    
-    | 
-    <a href='/tags/machine-learning/'>machine learning</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        ###1.Adaboost
-Adaboost基本思想是将一些弱分类器组合，形成一个强分类器。就是所说的“三个臭皮匠赛过诸葛亮”，这里的弱分类器到底有多弱？本文使用的是单层决策树（decision stump）针对每个变量求均值，然后每个变量都作为一次弱分类器。
-Adaboost里面重要的是两种参数，第一个是弱分类器权重参数（代码中的beta),这个是表明某个弱分类器的重要程度的一个参数。第二个参数是样本权重参数（代码中是归一化过的wei
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2015/11/13/Adaboost的python和R语言的实现/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2015/11/12/梯度下降实现SVM/">梯度下降实现SVM</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2015-11-12T12:00:00.000Z" itemprop="datePublished">
-          2015-11-12
-      </time>
-    
-    
-    | 
-    <a href='/tags/machine-learning/'>machine learning</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        ###1.SVM
-与逻辑斯蒂回归，提升方法类似区别在于代理损失函数，逻辑斯蒂回归用的是逻辑斯蒂损失函数，提升方法使用的是指数损失函数，而SVM则使用的是合页损失函数。
-分别记为： 
-1,exp(-yf(x))
-2, log[1+exp(-yf(x))]
-3, [1-yf(x)]+
-(最后一个加号是下标，是非负的表示方法)
-这些方法的损失函数关系和SVM求解参数的方法，见下图：
+变换成矩阵形式为：
 
-跟据上面的方法，使用梯度下降法可以写出如下python和R
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2015/11/12/梯度下降实现SVM/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2015/11/06/R语言实现神经网络（梯度下降）/">梯度下降实现bp神经网络（R语言）</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2015-11-06T12:00:00.000Z" itemprop="datePublished">
-          2015-11-06
-      </time>
-    
-    
-    | 
-    <a href='/tags/machine-learning/'>machine learning</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        ###1.bp神经网络
-一直听到过神经网络，没有机会好好学习下，研究逻辑斯谛回归时，正好延伸到神经网络，就顺带学习了下，其实原理很简单，就是设置一个隐藏层，使用输入层，对隐藏层上的每个节点进行逻辑斯谛回归，这些节点再作为输入点，对目标tag进行逻辑斯谛回归。这就是2层的神经网络，多层神经网络就是增加隐藏层的数目。
-而BP算法是为了解决多层前向神经网络的权系数优化而提出来的，采用梯度下降的方法求解时，每个神经元的求解方法和logistic
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2015/11/06/R语言实现神经网络（梯度下降）/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2015/10/21/主成分分析的两种语言实现/">主成分分析的两种语言实现</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2015-10-21T12:00:00.000Z" itemprop="datePublished">
-          2015-10-21
-      </time>
-    
-    
-    | 
-    <a href='/tags/machine-learning/'>machine learning</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        ###1.主成分分析计算步骤
-实现过程如下：
-（1）计算标准化的值z-score（z=(x-mu)/delta）关于为什么要用z-score做标准化的原因是：减去均值等同于坐标的移动，把原始数据点的重心移到和原点重合，这样利于很多表达，比如数据的协方差矩阵可以写成XX’，若没有减去均值，则XX‘后面还要减去一些东西（还不明白可以参考多元统计分析的书）。除以标准差是为了统一并消除量纲。一个矩阵中有多个向量，有些可能表示了长度，有些表示了重
-                      
-                    </p>
-                    
-                    <p class="pull-right readMore">
-                        <a href="/2015/10/21/主成分分析的两种语言实现/">Read More...</a>
-                    </p>
-                    
-                </div>
-                <div class="clearfix"></div>
-                <hr class="nogutter">
-            </div>
-        </div>
-        
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2 opening-statement">
-                <div class="col-md-4">
-                    <h3><a href="/2015/10/20/Titanic/">kaggle比赛之Titanic沉船事件</a></h3>
-                    <span>
-                        <span class="post-meta">
-      <time datetime="2015-10-20T12:00:00.000Z" itemprop="datePublished">
-          2015-10-20
-      </time>
-    
-    
-    | 
-    <a href='/tags/machine-learning/'>machine learning</a>
-    
-    
-</span>
-                    </span>
-                </div>
-                <div class="col-md-8">
-                    <p>
-                      
-                        这应该是一道公认的机器学习类比赛的入门题。特征工程大部分时候被认为是这类竞赛的关键部分，本文也会使用一些常用的方法去进行原始数据的处理，然后去提取特征，之后分别使用逻辑斯蒂回归，随机森林，梯度提升决策树，以及梯度提升决策树的变种xgboost.在选择参数的时候本文使用了网格搜索和交叉验证的方法, 使用python进行了整个处理过程
+即
+接下来的任务就是计算估计值
+
+###2.参数估计
+参数估计的方法有最小二乘估计,QR估计法
+####2.1 最小二乘
+要计算参数值，跟据最小二乘原理需要使得如下残差最小：这里我们将回归模型同乘样本观测值矩阵X的转置X^t,
+
 
                       
                     </p>
                     
                     <p class="pull-right readMore">
-                        <a href="/2015/10/20/Titanic/">Read More...</a>
+                        <a href="/2015/10/19/多元线性回归/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
+                    <h3><a href="/2015/10/08/矩阵求逆/">矩阵求逆（sweep operator & Gauss Jordan elimination）</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2015-10-08T12:00:00.000Z" itemprop="datePublished">
+          2015-10-08
+      </time>
+    
+    
+    | 
+    <a href='/tags/machine-learning/'>machine learning</a>
+    
+    
+</span>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        矩阵求逆我们一般可以使用Gauss—Jordan消去法，在此基础上，为了节省存储空间又可以使用sweep operator
+####1. Gauss—Jordan elimination  
+对于矩阵A，将其扩展为[A|I]
+
+只进行每行的扩大缩小（乘除），行和行之间的加减
+
+最后目的是将左矩阵变为单位矩阵，则右矩阵就是原矩阵的逆矩阵。这里我们会发现如图右矩阵每列一旦变成基向量，那么下面的变换这里就不再变化这里的空间就被浪费了。可以使用
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2015/10/08/矩阵求逆/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
+                    <h3><a href="/2015/06/12/随机森林的两种语言实现/">随机森林的两种语言实现</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2015-06-12T12:00:00.000Z" itemprop="datePublished">
+          2015-06-12
+      </time>
+    
+    
+    | 
+    <a href='/tags/machine-learning/'>machine learning</a>
+    
+    
+</span>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        ##随机森林
+随机森林是一个高度灵活的机器学习方法，随机森林是一个可做能够回归和分类。 它具备处理大数据的特性，而且它有助于估计或变量是非常重要的基础数据建模。
+随机森林其实是集成学习的一个子类，依靠于决策树的合并。
+本文给出决策树的两种实现python和spark平台的scala语言实现。
+###1.  python实现
+这里使用的数据集是来自uci的Forest Cover类型数据，数据量算是大的了，大概有58万个样本。
+直接先上代
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2015/06/12/随机森林的两种语言实现/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
+                    <h3><a href="/2015/05/09/主成分分析小结/">理解主成分分析</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2015-05-09T12:00:00.000Z" itemprop="datePublished">
+          2015-05-09
+      </time>
+    
+    
+    | 
+    <a href='/tags/machine-learning/'>machine learning</a>
+    
+    
+</span>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        ###主成分分析
+1. 生活中的主成分
+主成分分析（principal component analysis)是将多指标化为少数几个综合指标的一种统计分析方法，这种降维的技术而生成的主成分，能够反映原始变量的绝大部分信息，通常表示为原始变量的线性组合。
+就是将高维的数据投影到低维上来，当然，投影的方法就是，找出最能够代表原始数据的投影，就是数据不能太失真
+举个例子：
+中学生身体四项指标的主成分分析
+30名学生，测量其  身高（X1）、体
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2015/05/09/主成分分析小结/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
+                    <h3><a href="/2015/04/30/Fitting-Distribution-Parameters-to-Data/">Fitting Distribution Parameters to Data</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2015-04-30T03:25:28.000Z" itemprop="datePublished">
+          2015-04-30
+      </time>
+    
+    
+    | 
+    <a href='/tags/data-mining/'>data mining</a>
+    
+    
+</span>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        ##根据数据集推测分布函数及其参数给一个数据集，如何才能知道它是属于哪一个分布？之前“排队论”中讲过一个根据数字特征来判断的。除了方差，期望，还引进了一个概念叫变异系数（coefficient of variation）。定义的话就是标准差和期望的比值。一般不同的分布，变异系数不同且固定的，根据变异系数就能初步估计是什么分布了。
+此外R语言中MASS包里有个fitdistr函数，这个函数的作用就是将手头的数据去拟合罗列出来的分布函数，然
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2015/04/30/Fitting-Distribution-Parameters-to-Data/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
+                    <h3><a href="/2015/04/19/logistic regression/">logistic regression</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2015-04-19T11:37:00.000Z" itemprop="datePublished">
+          2015-04-19
+      </time>
+    
+    
+    | 
+    <a href='/tags/machine-learning/'>machine learning</a>
+    
+    
+</span>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        ##《统计学习方法》学习笔记(2)逻辑斯谛回归之前刚开始学逻辑斯谛回归，老师一直强调，这里叫“回归”，很具迷惑性，其实是分类。那为什么要叫“回归”？我们先去搞清楚一些概念
+####1. 感知机与逻辑斯谛回归有点迷惑都是用来做分类的模型，而且之后的策略又都是极大似然函数法，算法都是梯度下降等，如下图，都是要求decision boundary。那这两种方法究竟有什么区别？
+
+
+
+拿Andrew Ng讲logistic regression
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2015/04/19/logistic regression/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
+                    <h3><a href="/2015/04/10/C++申请动态空间问题/">C++申请动态空间问题</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2015-04-10T12:00:00.000Z" itemprop="datePublished">
+          2015-04-10
+      </time>
+    
+    
+    | 
+    <a href='/tags/cpp/'>cpp</a>
+    
+    
+</span>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        ###C++ 申请动态空间的一点总结
+1.内存中的堆和栈
+关于 堆 和  栈 ，最通俗易懂的区别就是：栈是编译器自动申请的，而堆是人为申请的。 此外，栈的空间在程序结束的时候由系统或者编译器自动释放，而堆则在程序结束前由程序员手动使用delete释放，或者忘记手动释放，由系统在程序结束的时候自动回收。看一个例子
+char *A=new char[10]
+这里地址（*A）就是存放在栈中,而new申请的十个字符空间则是在堆中。
+内存的分配如
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2015/04/10/C++申请动态空间问题/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
+                    <h3><a href="/2015/03/28/C++友元/">C++友元</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2015-03-28T12:00:15.000Z" itemprop="datePublished">
+          2015-03-28
+      </time>
+    
+    
+    | 
+    <a href='/tags/cpp/'>cpp</a>
+    
+    
+</span>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        ###C++ 友元的一点总结1.是什么？
+
+友元机制允许一个类将对其非公有成员的访问权授予制定的函数或类。  ——《c++ primer》
+
+2.为什么要提出？：类中一些成员函数使用较为频繁，需要大量时间开销，为了减少时间开销，就允许破坏程序的封装性，使用一个外部函数或类可以访问该类中的私有成员。所以友元的作用在于提高程序的运行效率（即减少了类型检查和安全性检查等都需要的时间开销）。
+3.友元的问题：友元的使用破坏了类的封装性和隐藏性，
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2015/03/28/C++友元/">Read More...</a>
+                    </p>
+                    
+                </div>
+                <div class="clearfix"></div>
+                <hr class="nogutter">
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 opening-statement">
+                <div class="col-md-4">
+                    <h3><a href="/2015/03/23/percerptron/">percerptron</a></h3>
+                    <span>
+                        <span class="post-meta">
+      <time datetime="2015-03-23T12:38:15.000Z" itemprop="datePublished">
+          2015-03-23
+      </time>
+    
+    
+    | 
+    <a href='/tags/machine-learning/'>machine learning</a>
+    
+    
+</span>
+                    </span>
+                </div>
+                <div class="col-md-8">
+                    <p>
+                      
+                        ##《统计学习方法》学习笔记(1)感知机感知机，作为后面支持向量机等的学习基础，很有必要好好学学研究透。只能用来在特征空间中线性分类，属于判别模型，形式为: ， 这里 表示两个向量的点乘，还可以表示为 其中 表示的转置。对于一个线性可分的数据集： 这里 。李航的书为了简便并未用粗体来区分向量和标量，而国外的教程中一般通过粗体来表示出向量，正常字体表示标量。
+感知机的学习策略就是通过从一个初始的超平面开始，通过错分类点，逐步逐步调整参数w
+                      
+                    </p>
+                    
+                    <p class="pull-right readMore">
+                        <a href="/2015/03/23/percerptron/">Read More...</a>
                     </p>
                     
                 </div>
@@ -618,8 +599,8 @@ Adaboost里面重要的是两种参数，第一个是弱分类器权重参数（
         </div>
         
         <nav class="pagination" role="pagination">
+          <a class="pull-left" href="/">← Newer Posts</a>
           
-          <a class="pull-right" href="/page/2/">Older Posts →</a>
         </nav>
     </div>
 </section>

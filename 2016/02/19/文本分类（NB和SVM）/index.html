@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>python 文本分类系列（1）——naive bayes 和 SVM多分类器 | nichunquan</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="nichunquan">
+    <meta name="author" content="nichunquan">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="nichunquan" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/cpp/" class="animsition-link">cpp<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/data-mining/" class="animsition-link">data mining<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/machine-learning/" class="animsition-link">machine learning<small>(16)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://cse.seu.edu.cn/CSE/UI/" class="animsition-link">CS of SEU</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/nichunquan/" class="animsition-link">CSDN</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">nichunquan</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/1.jpg) no-repeat center center fixed">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>SOMETHING ABOUT <span> Mechine Learning </span> , WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-02-19T03:00:00.000Z" itemprop="datePublished">
+          2016-02-19
+      </time>
+    
+    
+    | 
+    <a href='/tags/machine-learning/'>machine learning</a>
+    
+    
+</span>
+                <h1>python 文本分类系列（1）——naive bayes 和 SVM多分类器</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>##<strong>文本多分类</strong></p>
+<p>这里主要介绍三种方法：<strong>1)朴素贝叶斯</strong> , <strong>2)一对一SVM</strong> , <strong>3)一对多SVM</strong></p>
+<p><strong>1. 朴素贝叶斯</strong></p>
+<p>朴素贝叶斯方法具有容易实现，运行速度快的特点，被广泛在文本多分类器中使用，其中有比较常见的模型就是，多项式模型和伯努利模型(前者以单词为粒度，后者以文件为粒度)<br>在这里我们用多项式模型来运行起这个python代码</p>
+<p>怎么理解这个模型？通俗说就是，单词tk在证明d属于类c上提供了多大的证据，这个证据怎么表示？</p>
+<p>p(tk|c)=(类c下单词tk在各个文档中出现过的次数之和+1)/(类c下单词总数+|V|)</p>
+<p>V是训练样本的单词表（即抽取单词，单词出现多次，只算一个），|V|则表示训练样本包含多少种单词。</p>
+<p>python代码：</p>
+<h3 id="Naive-Bayes"><a href="#Naive-Bayes" class="headerlink" title="Naive Bayes"></a>Naive Bayes</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> fetch_20newsgroups</div><div class="line"></div><div class="line">categories = [<span class="string">'comp.sys.ibm.pc.hardware'</span>,<span class="string">'comp.sys.mac.hardware'</span>,<span class="string">'misc.forsale'</span>,<span class="string">'soc.religion.christian'</span>]</div><div class="line">twenty_train = fetch_20newsgroups(subset=<span class="string">'train'</span>, categories=categories, shuffle=<span class="keyword">True</span>, random_state=<span class="number">42</span>)</div><div class="line">twenty_test = fetch_20newsgroups(subset=<span class="string">'test'</span>, categories=categories, shuffle=<span class="keyword">True</span>, random_state=<span class="number">42</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> CountVectorizer</div><div class="line"><span class="keyword">from</span> sklearn.feature_extraction.text <span class="keyword">import</span> TfidfTransformer</div><div class="line"><span class="keyword">from</span> sklearn.naive_bayes <span class="keyword">import</span> MultinomialNB</div><div class="line"><span class="keyword">from</span> sklearn.pipeline <span class="keyword">import</span> Pipeline</div><div class="line">text_clf_NB = Pipeline([(<span class="string">'vect'</span>, CountVectorizer()),</div><div class="line">                     (<span class="string">'tfidf'</span>, TfidfTransformer()),</div><div class="line">                     (<span class="string">'clf'</span>, MultinomialNB()),</div><div class="line">])</div></pre></td></tr></table></figure>
+<p>这里的pipeline的作用是把前面的数据处理和后面的分类函数绑定在一起。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">text_clf_NB = text_clf_NB.fit(twenty_train.data, twenty_train.target)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">predicted = text_clf_NB.predict(twenty_test.data)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn <span class="keyword">import</span> metrics</div><div class="line"></div><div class="line">precision_nb=metrics.precision_score(twenty_test.target, predicted, average=<span class="string">'weighted'</span>)</div><div class="line">recall_nb=metrics.recall_score(twenty_test.target, predicted, average=<span class="string">'weighted'</span>)</div><div class="line">accuracy_nb=metrics.accuracy_score(twenty_test.target, predicted)</div><div class="line">matrix_nb=metrics.confusion_matrix(twenty_test.target, predicted)</div><div class="line"></div><div class="line"><span class="keyword">print</span> (<span class="string">"accuracy: %f\nrecall: %f\nprecision:%f\n"</span>%(accuracy_nb,recall_nb,precision_nb))</div><div class="line">print(<span class="string">"confusion matrix: \n%s"</span>%matrix_nb)</div></pre></td></tr></table></figure>
+<pre><code>accuracy: 0.890096
+recall: 0.890096
+precision:0.894808
+
+confusion matrix: 
+[[355  23   4  10]
+ [ 33 330   5  17]
+ [ 40  22 313  15]
+ [  2   1   0 395]]
+</code></pre><p>使用metric包进行评估，这里precision和recall值里面average要设置成weighted，若是默认则为二分类问题</p>
+<p><strong>2. 一对一SVM</strong></p>
+<p>思路：<br>对每两个标签的数据进行训练，预测测试集，预测结果相应为该标签加个权重值，这里使用字典查询features里面的键（就是这两个正在比较的标签）对应的值通过加布尔值方法来count<br>代码中1-predict_temp是predict_temp的取反。<br>在代码中还有一个注意点<strong>字典是没有顺序的</strong>如果直接使用features.values（）得到的array是无序的，这样就不好锁定index<br>最后就是使用numpy里面一个神奇的函数argmax（发现这个函数之前，我用了很多方法试图实现这样一个功能，都失败了）<br>这样就成功把count最大的index 给导入到一个list中能够与target进行比较了</p>
+<p>python代码：</p>
+<h3 id="One-VS-One-SVM"><a href="#One-VS-One-SVM" class="headerlink" title="One VS One SVM"></a>One VS One SVM</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> sklearn.svm <span class="keyword">import</span> LinearSVC</div><div class="line">text_clf_svm = Pipeline([(<span class="string">'vect'</span>, CountVectorizer()),</div><div class="line">                     (<span class="string">'tfidf'</span>, TfidfTransformer()),</div><div class="line">                     (<span class="string">'clf'</span>, LinearSVC()),</div><div class="line">])</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">param=[[<span class="string">'comp.sys.ibm.pc.hardware'</span>,<span class="string">'comp.sys.mac.hardware'</span>],</div><div class="line">       [<span class="string">'comp.sys.ibm.pc.hardware'</span>,<span class="string">'misc.forsale'</span>],</div><div class="line">      [<span class="string">'comp.sys.ibm.pc.hardware'</span>,<span class="string">'soc.religion.christian'</span>],</div><div class="line">       [<span class="string">'comp.sys.mac.hardware'</span>,<span class="string">'misc.forsale'</span>],</div><div class="line">       [<span class="string">'comp.sys.mac.hardware'</span>,<span class="string">'soc.religion.christian'</span>],</div><div class="line">       [<span class="string">'misc.forsale'</span>,<span class="string">'soc.religion.christian'</span>]]</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"></div><div class="line">features = &#123;</div><div class="line">         <span class="string">'comp.sys.ibm.pc.hardware'</span>:<span class="number">0</span>,</div><div class="line">         <span class="string">'comp.sys.mac.hardware'</span>:<span class="number">0</span>,</div><div class="line">         <span class="string">'misc.forsale'</span>:<span class="number">0</span>,</div><div class="line">         <span class="string">'soc.religion.christian'</span>:<span class="number">0</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line"><span class="keyword">for</span> p <span class="keyword">in</span> param:</div><div class="line">    twenty_train_temp = fetch_20newsgroups(subset=<span class="string">'train'</span>, categories=p, shuffle=<span class="keyword">True</span>, random_state=<span class="number">42</span>)</div><div class="line">    text_clf_svm = text_clf_svm.fit(twenty_train_temp.data, twenty_train_temp.target)</div><div class="line">    predict_temp = text_clf_svm.predict(twenty_test.data)  </div><div class="line">    features[p[<span class="number">0</span>]]=features[p[<span class="number">0</span>]]+(<span class="number">1</span>-predict_temp)  </div><div class="line">    features[p[<span class="number">1</span>]]=features[p[<span class="number">1</span>]]+predict_temp    </div><div class="line">    <span class="comment">#1-predicted means it belongs to the first category, predicted means it belongs to the second category</span></div><div class="line">    </div><div class="line">    </div><div class="line">t = [features[categories[<span class="number">0</span>]],features[categories[<span class="number">1</span>]],features[categories[<span class="number">2</span>]],features[categories[<span class="number">3</span>]]]</div><div class="line">arr = np.array(t)</div><div class="line">predict2 = arr.argmax(axis=<span class="number">0</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">precision_svc1=metrics.precision_score(twenty_test.target, predict2, average=<span class="string">'weighted'</span>)</div><div class="line">recall_svc1=metrics.recall_score(twenty_test.target, predict2, average=<span class="string">'weighted'</span>)</div><div class="line">accuracy_svc1=metrics.accuracy_score(twenty_test.target, predict2)</div><div class="line">matrix_svc1=metrics.confusion_matrix(twenty_test.target, predict2)</div><div class="line"></div><div class="line"><span class="keyword">print</span> (<span class="string">"accuracy: %f\nrecall: %f\nprecision:%f\n"</span>%(accuracy_svc1,recall_svc1,precision_svc1))</div><div class="line">print(<span class="string">"confusion matrix: \n%s"</span>%matrix_svc1)</div></pre></td></tr></table></figure>
+<pre><code>accuracy: 0.915655
+recall: 0.915655
+precision:0.916187
+
+confusion matrix: 
+[[338  35  19   0]
+ [ 26 342  16   1]
+ [ 16   5 368   1]
+ [  9   1   3 385]]
+</code></pre><p><strong>2. 一对多SVM</strong></p>
+<p>相对简单很多只要更改下训练数据的target变成一个new_target（这里使用list里面lambda 的高级使用方法map()，除了map()之外lambda还有filter reduce这两个函数来满足list里面的元素操作）</p>
+<p>然后就可以训练预测了</p>
+<p>预测结果是布尔值，乘上类别序号，再把它们都加起来就可以得到index 的list</p>
+<p>python 代码：</p>
+<h3 id="One-VS-All-SVM"><a href="#One-VS-All-SVM" class="headerlink" title="One VS All SVM"></a>One VS All SVM</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">predict3 = np.zeros(len(twenty_test.target))</div><div class="line"><span class="keyword">for</span> tar <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">4</span>):</div><div class="line">    new_train_target = map(<span class="keyword">lambda</span> x:x==tar, twenty_train.target)</div><div class="line">    text_clf_svm = text_clf_svm.fit(twenty_train.data,new_train_target)</div><div class="line">    predict_temp = text_clf_svm.predict(twenty_test.data)  </div><div class="line">    predict3 = predict3 +  predict_temp*tar</div></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">precision_svc2=metrics.precision_score(twenty_test.target, predict3, average=<span class="string">'weighted'</span>)</div><div class="line">recall_svc2=metrics.recall_score(twenty_test.target, predict3, average=<span class="string">'weighted'</span>)</div><div class="line">accuracy_svc2=metrics.accuracy_score(twenty_test.target, predict3)</div><div class="line">matrix_svc2=metrics.confusion_matrix(twenty_test.target, predict3)</div><div class="line"></div><div class="line"><span class="keyword">print</span> (<span class="string">"accuracy: %f\nrecall: %f\nprecision:%f\n"</span>%(accuracy_svc2,recall_svc2,precision_svc2))</div><div class="line">print(<span class="string">"confusion matrix: \n%s"</span>%matrix_svc2)</div></pre></td></tr></table></figure>
+<pre><code>accuracy: 0.890735
+recall: 0.890735
+precision:0.907103
+
+confusion matrix: 
+[[371  12   9   0]
+ [ 83 296   5   1]
+ [ 37   2 345   6]
+ [ 15   0   1 382]]
+</code></pre>
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2016/04/06/igraph1/" style="float: left;">
+        ← R包igraph的使用
+    </a>
+    
+    
+    <a class="pull-right" href="/2015/12/12/R,C++ and Rcpp/">
+        R, C++ and Rcpp →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/02/19/文本分类（NB和SVM）/" data-title="python 文本分类系列（1）——naive bayes 和 SVM多分类器" data-url="http://yoursite.com/2016/02/19/文本分类（NB和SVM）/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"nichunquan"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By nichunquan. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>基于R语言的热度图（heatmap）分析美国参议院投票两极化程度 | nichunquan</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="nichunquan">
+    <meta name="author" content="nichunquan">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="nichunquan" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/cpp/" class="animsition-link">cpp<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/data-mining/" class="animsition-link">data mining<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/machine-learning/" class="animsition-link">machine learning<small>(16)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://cse.seu.edu.cn/CSE/UI/" class="animsition-link">CS of SEU</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/nichunquan/" class="animsition-link">CSDN</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">nichunquan</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/1.jpg) no-repeat center center fixed">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>SOMETHING ABOUT <span> Mechine Learning </span> , WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2016-06-14T12:00:00.000Z" itemprop="datePublished">
+          2016-06-14
+      </time>
+    
+    
+    | 
+    <a href='/tags/machine-learning/'>machine learning</a>
+    
+    
+</span>
+                <h1>基于R语言的热度图（heatmap）分析美国参议院投票两极化程度</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<h4 id="热度图是什么，有什么好处，R中如何使用？"><a href="#热度图是什么，有什么好处，R中如何使用？" class="headerlink" title="热度图是什么，有什么好处，R中如何使用？"></a>热度图是什么，有什么好处，R中如何使用？</h4><p>图，总是为了我们更直观地去理解问题，热度图也不例外，它让我们能够看清楚在哪一块数据值比较高，哪块比较低，这样也就可以看出其他一些信息，比如，某些块数据可能聚集了，在这些直观信息帮助下，可以指导我们下一步做什么处理，做聚类？数据特征降维？下面主要结合美国选举数据进行一些分析。</p>
+<p>数据背景，美国主要有两个党派： 民主党和共和党，在进行选举的时候采用唱名投票（Roll call vote），数据从102届到113届，总共有11界，每届每个条目包括选举者所在党派，以及大部分收到的投票信息。</p>
+<p><a href="http://pan.baidu.com/s/1kVRL5H1" target="_blank" rel="external">数据下载链接</a></p>
+<p>下面我们就数据去得出一些结论。</p>
+<p>初始数据进行一下处理，我们先对投票进行简化。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">data.dir &lt;-  <span class="string">'.'</span></div><div class="line">data.files &lt;- list.files(data.dir, pattern = <span class="string">".dta"</span> )</div><div class="line">rollcall.data &lt;- lapply(data.files,</div><div class="line">                        <span class="keyword">function</span>(f)</div><div class="line">                        &#123;</div><div class="line">                          read.dta( f, convert.factors = <span class="literal">FALSE</span>)</div><div class="line">                        &#125;)</div><div class="line">rollcall.simplified &lt;- <span class="keyword">function</span>(df)</div><div class="line">&#123;</div><div class="line">  no.pres &lt;- subset(df, state &lt; <span class="number">99</span>)</div><div class="line">  <span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">10</span>:ncol(no.pres))</div><div class="line">  &#123;</div><div class="line">    no.pres[,i] &lt;- ifelse(no.pres[,i] &gt; <span class="number">6</span>, <span class="number">0</span>, no.pres[,i])</div><div class="line">    no.pres[,i] &lt;- ifelse(no.pres[,i] &gt; <span class="number">0</span> &amp; no.pres[,i] &lt; <span class="number">4</span>, <span class="number">1</span>, no.pres[,i])</div><div class="line">    no.pres[,i] &lt;- ifelse(no.pres[,i] &gt; <span class="number">1</span>, -<span class="number">1</span>, no.pres[,i])</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span>(as.matrix(no.pres[,<span class="number">10</span>:ncol(no.pres)]))</div><div class="line">&#125;</div><div class="line">rollcall.simple &lt;- lapply(rollcall.data, rollcall.simplified)</div></pre></td></tr></table></figure>
+<p>然后选取一届（这里选取最近一届113届）进行单个分析，</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">k = <span class="number">12</span>   </div><div class="line">f = data.files[k]</div><div class="line"></div><div class="line">VotingMatrix = rollcall.simple[[k]]</div><div class="line">no.pres &lt;- subset( rollcall.data[[k]], state &lt; <span class="number">99</span> )</div><div class="line">SenatorNames = no.pres[,<span class="number">9</span>]</div><div class="line"></div><div class="line">heatmap( VotingMatrix,  scale=<span class="string">"none"</span>,</div><div class="line">         labRow = SenatorNames, cexRow=<span class="number">0.35</span>,</div><div class="line">         labCol = colnames(VotingMatrix), cexCol=<span class="number">0.1</span>,</div><div class="line">         col=c(<span class="string">"red"</span>,<span class="string">"yellow"</span>,<span class="string">"green"</span>))</div><div class="line">         <span class="comment">#  vote values are  -1, 0, 1   </span></div><div class="line"></div><div class="line">legend( <span class="string">"topleft"</span>, c(<span class="string">'no'</span>,<span class="string">'--'</span>,<span class="string">'yes'</span>),</div><div class="line">         col=c(<span class="string">"red"</span>,<span class="string">"yellow"</span>,<span class="string">"green"</span>), lwd=<span class="number">3</span>, cex=<span class="number">0.35</span>, title=f)</div></pre></td></tr></table></figure>
+<p>可以得出热力图：</p>
+<p><img src="http://i1064.photobucket.com/albums/u366/cccoder/heatmap5_zpslcak2uh2.jpg" alt="heatmap1"></p>
+<p>这是一个关于样本和特征之间关系的热力图，但是从图中我们看出了样本和样本之间的关系，就是红色的有聚集效应，代表了属于同一政党的参议员获得的支持有两极化趋势，（民主、共和两党选民的意识形态差距不断拉大）。</p>
+<p>除了从样本和特征这两个维度做热力图，还可以对样本和样本之间的关系做热力图。</p>
+<p><img src="http://i1064.photobucket.com/albums/u366/cccoder/untitled_zpsgte0ab5r.png" alt="heatmap2"></p>
+<p>代码如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">library</span>(gplots)</div><div class="line">rollcall.dist &lt;- lapply(rollcall.simple, <span class="keyword">function</span>(m) dist(m %*% t(m)))</div><div class="line"></div><div class="line">k=<span class="number">12</span> </div><div class="line">f = data.files[k]</div><div class="line">VotingMatrix = rollcall.dist[[k]]</div><div class="line">SenatorNames = (rollcall.data[[k]])[,<span class="string">"name"</span>]</div><div class="line"></div><div class="line">heatmap.2(as.matrix(VotingMatrix),</div><div class="line">            Rowv=<span class="literal">TRUE</span>,</div><div class="line">            Colv=<span class="literal">TRUE</span>,</div><div class="line">            <span class="comment"># dendrogram= c("none"),</span></div><div class="line">            distfun = dist,</div><div class="line">            hclustfun = hclust,</div><div class="line">            labRow = SenatorNames, cexRow=<span class="number">0.35</span>,</div><div class="line">            labCol = SenatorNames, cexCol=<span class="number">0.1</span>,</div><div class="line">            key=<span class="literal">TRUE</span>,</div><div class="line">            trace=<span class="string">"none"</span>,</div><div class="line">            density.info=c(<span class="string">"none"</span>),</div><div class="line">            margins=c(<span class="number">10</span>, <span class="number">8</span>),)</div><div class="line">  </div><div class="line">  </div><div class="line">title(sub=paste(<span class="string">'Roll Call Vote '</span>,k+<span class="number">101</span>,<span class="string">'th Congress'</span>))</div></pre></td></tr></table></figure>
+<p>这里主要是对任意两个senator之间的距离进行衡量，然后通过这个距离矩阵做出热力图。</p>
+<p>到此我们只能大致看出党派之间存在两极化，如何将这个两级化量化呢？这里我考虑使用聚类，然后用聚类中心之间的距离来衡量，（或许还可以考虑类内聚合度？）但问题是这里特征太多了，聚类结果不好可视化，我们可以使用<a href="http://www.statmethods.net/advstats/mds.html" target="_blank" rel="external">MDS</a>(Multi-Dimensional Scaling)，R中有这样一个函数</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Do the multidimensional scaling</span></div><div class="line">rollcall.mds &lt;- lapply(rollcall.dist,</div><div class="line">                       <span class="keyword">function</span>(d) as.data.frame((cmdscale(d, k = <span class="number">2</span>)) * -<span class="number">1</span>))</div></pre></td></tr></table></figure>
+<p>再进行k-means聚类，计算两极化值</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mat&lt;-rollcall.mds[[<span class="number">12</span>]]</div><div class="line">cluster&lt;-kmeans(mat,centers=<span class="number">2</span>,nstart=<span class="number">1</span>)</div><div class="line">polarization&lt;-sqrt(sum((cluster$centers[<span class="number">1</span>,<span class="number">1</span>]-cluster$centers[<span class="number">2</span>,<span class="number">1</span>])^<span class="number">2</span>+(cluster$centers[<span class="number">1</span>,<span class="number">2</span>]-cluster$centers[<span class="number">2</span>,<span class="number">2</span>])^<span class="number">2</span>))</div></pre></td></tr></table></figure>
+<p>这样用同样的方法计算出另外几届的两极化值就可以画出趋势图了：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">polarization_index_list=list()</div><div class="line"><span class="keyword">for</span> (k <span class="keyword">in</span> <span class="number">1</span>:length(rollcall.mds))</div><div class="line">&#123;</div><div class="line">  mat&lt;-rollcall.mds[[k]]</div><div class="line">  cluster&lt;-kmeans(mat,centers=<span class="number">2</span>,nstart=<span class="number">10</span>)</div><div class="line">  polarization_index=polarization&lt;-sqrt(sum((cluster$centers[<span class="number">1</span>,<span class="number">1</span>]-cluster$centers[<span class="number">2</span>,<span class="number">1</span>])^<span class="number">2</span>+(cluster$centers[<span class="number">1</span>,<span class="number">2</span>]-cluster$centers[<span class="number">2</span>,<span class="number">2</span>])^<span class="number">2</span>))</div><div class="line">  polarization_index_list[[k]]&lt;-polarization_index</div><div class="line">  </div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">Congress=list(<span class="string">'sen102'</span>,<span class="string">'sen103'</span>,<span class="string">'sen104'</span>,<span class="string">'sen105'</span>,<span class="string">'sen106'</span>,<span class="string">'sen107'</span>,<span class="string">'sen108'</span>,<span class="string">'sen109'</span>,<span class="string">'sen110'</span>,<span class="string">'sen111'</span>,<span class="string">'sen112'</span>,<span class="string">'sen113'</span>)</div><div class="line">Measure=list(polarization_index_list)</div><div class="line">dfTimeSeries=do.call(rbind,Map(data.frame,Congress=Congress,Measure=polarization_index_list))</div><div class="line">ggplot(dfTimeSeries, aes(x = Congress, y = Measure,group=<span class="number">1</span>)) +</div><div class="line">  geom_line(colour=<span class="string">"red"</span>, linetype=<span class="string">"solid"</span>, size=<span class="number">1.5</span>)+geom_path()+xlab(<span class="string">"Congress"</span>)+ylab(<span class="string">"Measure"</span>)+ggtitle(<span class="string">"Timeline of Polarization Measure"</span>)</div></pre></td></tr></table></figure>
+<p>最后得到的趋势图为</p>
+<p><img src="http://i1064.photobucket.com/albums/u366/cccoder/untitled_zpsahiqgreg.png" alt="timeline"></p>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    
+    <a class="pull-right" href="/2016/06/01/类别不平衡/">
+        R语言，数据类别不平衡的一种处理方法 →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2016/06/14/热力图/" data-title="基于R语言的热度图（heatmap）分析美国参议院投票两极化程度" data-url="http://yoursite.com/2016/06/14/热力图/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"nichunquan"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By nichunquan. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

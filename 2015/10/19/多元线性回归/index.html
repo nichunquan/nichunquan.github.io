@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<!--[if lte IE 8 ]>
+<html class="ie" xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!-->
+<!--
+***************  *      *     *
+      8          *    *       *
+      8          *  *         *
+      8          **           *
+      8          *  *         *
+      8          *    *       *
+      8          *      *     *
+      8          *        *   ***********    -----Theme By Kieran(http://go.kieran.top)
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US" lang="en-US">
+<!--<![endif]-->
+
+<head>
+  <title>多元线性回归 | nichunquan</title>
+  <!-- Meta data -->
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="nichunquan">
+    <meta name="author" content="nichunquan">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- Favicon, (keep icon in root folder) -->
+    <link rel="Shortcut Icon" href="/img/favicon.ico" type="image/ico">
+
+    <link rel="alternate" href="/atom.xml" title="nichunquan" type="application/atom+xml">
+    <link rel="stylesheet" href="/css/all.css" media="screen" type="text/css">
+
+    
+
+    <!-- Custom stylesheet, (add custom styles here, always load last) -->
+    <!-- Load our stylesheet for IE8 -->
+    <!--[if IE 8]>
+    <link rel="stylesheet" type="text/css" href="/css/ie8.css" />
+    <![endif]-->
+
+    <!-- Google Webfonts (Monserrat 400/700, Open Sans 400/600) -->
+    <link href='//fonts.useso.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link href='//fonts.useso.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+
+    <!-- Load our fonts individually if IE8+, to avoid faux bold & italic rendering -->
+    <!--[if IE]>
+    <link href='http://fonts.useso.com/css?family=Montserrat:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:400' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.useso.com/css?family=Open+Sans:600' rel='stylesheet' type='text/css'>
+    <![endif]-->
+
+    <!-- jQuery | Load our jQuery, with an alternative source fallback to a local version if request is unavailable -->
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/jquery-1.11.1.min.js"><\/script>')</script>
+
+    <!-- Load these in the <head> for quicker IE8+ load times -->
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="/js/html5shiv.min.js"></script>
+    <script src="/js/respond.min.js"></script>
+    <![endif]-->
+
+
+
+
+
+
+
+
+
+
+  
+  
+  
+
+  
+</head>
+
+<!--
+<body class="post-template">
+-->
+<body id="index" class="lightnav animsition">
+
+      <!-- ============================ Off-canvas navigation =========================== -->
+
+    <div class="sb-slidebar sb-right sb-style-overlay sb-momentum-scrolling">
+        <div class="sb-close" aria-label="Close Menu" aria-hidden="true">
+            <img src="/img/close.png" alt="Close"/>
+        </div>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu">
+            <li><a href="/" class="animsition-link" title="Home">Home</a></li>
+            <li><a href="/archives" class="animsition-link" title="archive">archives</a></li>
+            <!-- Dropdown Menu -->
+			 
+            <li>
+                <a class="sb-toggle-submenu">Works<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                        <li><a href="/" target="_BLANK" class="animsition-link">AAA</a></li>
+                    
+                        <li><a href="/atom.xml" target="_BLANK" class="animsition-link">BBB</a></li>
+                    
+                </ul>
+            </li>
+            
+            
+        	<li>
+        		<a class="sb-toggle-submenu">Categories<span class="sb-caret"></span></a>
+            	<ul class="sb-submenu">
+				  	
+				    <li><a href="/categories/cpp/" class="animsition-link">cpp<small>(2)</small></a></li>
+				    
+				    <li><a href="/categories/data-mining/" class="animsition-link">data mining<small>(1)</small></a></li>
+				    
+				    <li><a href="/categories/machine-learning/" class="animsition-link">machine learning<small>(16)</small></a></li>
+				    
+				</ul>
+        	</li>
+			
+            
+            <li>
+                <a class="sb-toggle-submenu">Links<span class="sb-caret"></span></a>
+                <ul class="sb-submenu">
+                    
+                    <li><a href="http://cse.seu.edu.cn/CSE/UI/" class="animsition-link">CS of SEU</a></li>
+                    
+                    <li><a href="http://blog.csdn.net/nichunquan/" class="animsition-link">CSDN</a></li>
+                    
+                </ul>
+            </li>
+            
+        </ul>
+        <!-- Lists in Slidebars -->
+        <ul class="sb-menu secondary">
+            <li><a href="/about.html" class="animsition-link" title="about">About</a></li>
+            <li><a href="/atom.xml" class="animsition-link" title="rss">RSS</a></li>
+        </ul>
+    </div>
+    
+    <!-- ============================ END Off-canvas navigation =========================== -->
+
+    <!-- ============================ #sb-site Main Page Wrapper =========================== -->
+
+    <div id="sb-site">
+        <!-- #sb-site - All page content should be contained within this id, except the off-canvas navigation itself -->
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <div id="navigation" class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <!-- Nav logo -->
+                    <div class="logo">
+                        <a href="/" title="Logo" class="animsition-link">
+                         <img src="/img/logo.png" alt="Logo" width="35px;"/> 
+                        </a>
+                    </div>
+                    <!-- // Nav logo -->
+                    <!-- Info-bar -->
+                    <nav>
+                        <ul class="nav">
+                            <li><a href="/" class="animsition-link">nichunquan</a></li>
+                            <li class="nolink"><span>Always </span>Creative.</li>
+                            
+                            <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a></li>
+                            
+                            
+                            <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a></li>
+                            
+                            
+                            <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a></li>
+                            
+                            
+                            <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a></li>
+                            
+                            
+                            <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a></li>
+                            
+                            <li class="nolink"><span>Welcome!</span></li>
+                        </ul>
+                    </nav>
+                    <!--// Info-bar -->
+                </div>
+                <!-- // .container -->
+                <div class="learnmore sb-toggle-right">More</div>
+                <button type="button" class="navbar-toggle menu-icon sb-toggle-right" title="More">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar before"></span>
+                <span class="icon-bar main"></span>
+                <span class="icon-bar after"></span>
+                </button>
+            </div>
+            <!-- // .navbar-inner -->
+        </div>
+
+        <!-- ============================ Header & Logo bar =========================== -->
+
+        <!-- ============================ Hero Image =========================== -->
+
+        <section id="hero" class="scrollme">
+            <div class="container-fluid element-img" style="background: url(/img/1.jpg) no-repeat center center fixed">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 vertical-align cover boost text-center">
+                        <div class="center-me animateme" data-when="exit" data-from="0" data-to="0.6" data-opacity="0" data-translatey="100">
+                            <div>
+                            	
+                                <h2>SOMETHING ABOUT <span> Mechine Learning </span> , WELCOME.</h2>
+                                <p></p>
+				    			
+                                <h2></h2>
+                                <p>每一个不曾起舞的日子都是对生命的辜负。</p>
+				    			
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- // .col-md-12 -->
+                </div>
+                <div class="herofade beige-dk"></div>
+            </div>
+        </section>
+
+        <!-- Height spacing helper -->
+        <div class="heightblock"></div>
+        <!-- // End height spacing helper -->
+
+        <!-- ============================ END Hero Image =========================== -->
+      
+<section id="intro">
+    <div class="container">
+        <div class="row col-md-offset-2">
+            <div class="col-md-8">
+    			<span class="post-meta">
+      <time datetime="2015-10-19T02:00:00.000Z" itemprop="datePublished">
+          2015-10-19
+      </time>
+    
+    
+    | 
+    <a href='/tags/machine-learning/'>machine learning</a>
+    
+    
+</span>
+                <h1>多元线性回归</h1>
+            </div>
+        </div>
+        <div class="col-md-8 col-md-offset-2">
+      		<p>###1.多元线性回归模型<br>假定被解释变量Y和多个解释变量X1,X2,X3,…,Xk之间具有线性关系，是解释变量的线性函数，则称为多元线性回归模型。</p>
+<p>对于n组观测值<img src="http://images.cnblogs.com/cnblogs_com/zgw21cn/122408_0506_14.png" alt="">,写成方程组的形式为：</p>
+<p><img src="http://images.cnblogs.com/cnblogs_com/zgw21cn/122408_0506_16.png" alt=""></p>
+<p>变换成矩阵形式为：</p>
+<p><img src="http://i11.tietuku.com/3004157845bcbf80.png" alt=""></p>
+<p>即<img src="http://i11.tietuku.com/8994a0f7b5be5909.png" alt=""></p>
+<p>接下来的任务就是计算估计值<img src="http://i11.tietuku.com/1b5fca6db8c158e6.png" alt=""></p>
+<hr>
+<p>###2.参数估计</p>
+<p>参数估计的方法有最小二乘估计,QR估计法</p>
+<p>####2.1 最小二乘</p>
+<p>要计算参数值，跟据最小二乘原理需要使得如下残差最小：<br><img src="http://i11.tietuku.com/614475c59a4e30ca.png" alt=""><br>这里我们将回归模型同乘样本观测值矩阵X的转置X^t,</p>
+<p><img src="http://i13.tietuku.com/8ff998be0d401a81.png" alt=""></p>
+<p>将常数项归并到参数项中得到正规形式为：</p>
+<p><img src="http://i13.tietuku.com/83a5069bee908139.png" alt=""></p>
+<p>最后结果为计算下列矩阵：</p>
+<p><img src="http://i13.tietuku.com/37c7336617b45c92.png" alt=""></p>
+<p>####2.2 QR分解<br>qr分解，可以形象地表示为下图：</p>
+<p><img src="http://images.cnitblog.com/blog/533521/201307/23145605-d4d4d7c090a04117ac93542ef3f401ba.png" alt=""></p>
+<p>其中， Q 是一个标准正交方阵， R 是上三角矩阵。<br>具体的QR分解算法和算例见维基 <a href="https://en.wikipedia.org/wiki/QR_decomposition" target="_blank" rel="external">QR</a>.</p>
+<p>利用QR分解法避免了最小二乘中的求逆运算。</p>
+<hr>
+<p>###3.代码</p>
+<p>python</p>
+<p>这里用python的可能熟悉，numpy.linalg里面的一个函数<a href="http://docs.scipy.org/doc/numpy/reference/generated/numpy.linalg.lstsq.html" target="_blank" rel="external">lstsq</a>.这个函数功能是返回一个线性矩阵方程的最小二乘解法。</p>
+<p>我们不用自带函数，并使用前一篇讲到的sweep operator,和这里的QR分解分别求参数：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line">from scipy import linalg</div><div class="line">import pandas as pd</div><div class="line"></div><div class="line">def qr(A):</div><div class="line">    n, m = A.shape</div><div class="line">    R = A.copy()</div><div class="line">    Q = np.eye(n)</div><div class="line"></div><div class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> range(m-<span class="number">1</span>):</div><div class="line">        x = np.zeros((n, <span class="number">1</span>))</div><div class="line">        x[k:, <span class="number">0</span>] = R[k:, k]</div><div class="line">        v = x</div><div class="line">        v[k] = x[k] + np.sign(x[k,<span class="number">0</span>]) * np.linalg.norm(x)</div><div class="line"></div><div class="line">        s = np.linalg.norm(v)</div><div class="line">        <span class="keyword">if</span> s != <span class="number">0</span>:</div><div class="line">            u = v / s</div><div class="line">            R -= <span class="number">2</span> * np.dot(u, np.dot(u.T, R))</div><div class="line">            Q -= <span class="number">2</span> * np.dot(u, np.dot(u.T, Q))</div><div class="line">    Q = Q.T</div><div class="line">    <span class="keyword">return</span> Q, R</div><div class="line"></div><div class="line"></div><div class="line">def mySweep(A, m):</div><div class="line">        B = np.copy(A)</div><div class="line">        n = B.shape[<span class="number">0</span>]</div><div class="line">        <span class="keyword">for</span> k <span class="keyword">in</span> range(m):</div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">                <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</div><div class="line">                    <span class="keyword">if</span> i != k and j != k:</div><div class="line">                        B[i,j] = B[i,j]- B[i,k]*B[k,j]/B[k,k]</div><div class="line"></div><div class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">                <span class="keyword">if</span> i != k:</div><div class="line">                    B[i,k] = B[i,k]/B[k,k]</div><div class="line"></div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> range(n):</div><div class="line">                <span class="keyword">if</span> j != k:</div><div class="line">                    B[k,j] = B[k,j]/B[k,k]</div><div class="line"></div><div class="line">            B[k,k] = - <span class="number">1</span>/B[k,k]</div><div class="line">        <span class="keyword">return</span> B</div><div class="line"></div><div class="line">def mylm1(X,Y):</div><div class="line">    n, m = X.shape</div><div class="line">    Z = np.hstack((np.ones(n).reshape((n, <span class="number">1</span>)), X, Y.reshape((n, <span class="number">1</span>))))</div><div class="line">    A = np.dot(Z.T, Z)</div><div class="line">    S = mySweep(A,m+<span class="number">1</span>)</div><div class="line">    beta_hat = S[<span class="number">0</span>:m+<span class="number">1</span>, m+<span class="number">1</span>]</div><div class="line">    <span class="keyword">return</span> beta_hat</div><div class="line"></div><div class="line">def mylm2(X,Y):</div><div class="line">    n, m = X.shape</div><div class="line">    Z = np.hstack((np.ones(n).reshape((n, <span class="number">1</span>)), X, Y.reshape((n, <span class="number">1</span>))))</div><div class="line">    _, R = qr(Z)</div><div class="line">    R1 = R[:m+<span class="number">1</span>, :m+<span class="number">1</span>]</div><div class="line">    Y1 = R[:m+<span class="number">1</span>, m+<span class="number">1</span>]</div><div class="line">    beta = np.linalg.solve(R1, Y1)</div><div class="line">    <span class="keyword">return</span> beta</div><div class="line"></div><div class="line">A = pd.read_csv(r<span class="string">"C:\Users\Nicky\Documents\state_x77.csv"</span>)</div><div class="line">X = A.loc[:,[<span class="string">'Population'</span>,<span class="string">'Income'</span>,<span class="string">'Illiteracy'</span>,<span class="string">'Murder'</span>,<span class="string">'HS.Grad'</span>,<span class="string">'Frost'</span>,<span class="string">'Area'</span>,<span class="string">'Density'</span>]].values</div><div class="line">Y = A.loc[:,[<span class="string">'Life.Exp'</span>]].values</div><div class="line"></div><div class="line">mybeta1 = mylm1(X,Y)</div><div class="line">print(mybeta1)</div><div class="line">mybeta2 = mylm2(X,Y)</div><div class="line">print(mybeta2)</div><div class="line">Z = np.hstack((np.ones(X.shape[<span class="number">0</span>]).reshape((X.shape[<span class="number">0</span>], <span class="number">1</span>)),X))</div><div class="line">w = linalg.lstsq(Z,Y)[<span class="number">0</span>]</div><div class="line">w = w.reshape(<span class="number">1</span>,X.shape[<span class="number">1</span>]+<span class="number">1</span>)</div><div class="line">print(w)</div></pre></td></tr></table></figure>
+<p>R语言</p>
+<p>在R中也有对应的函数来求多元线性回归方程（lm()）</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div></pre></td><td class="code"><pre><div class="line">myqr &lt;- <span class="keyword">function</span>(A)</div><div class="line">&#123;</div><div class="line">  n = nrow(A)</div><div class="line">  m = ncol(A)</div><div class="line">  R = A</div><div class="line">  Q = diag(n)</div><div class="line">  </div><div class="line">  <span class="keyword">for</span> (k <span class="keyword">in</span> <span class="number">1</span>:(m-<span class="number">1</span>))</div><div class="line">  &#123;</div><div class="line">    x = matrix(rep(<span class="number">0</span>, n), nrow = n)</div><div class="line">    x[k:n, <span class="number">1</span>] = R[k:n, k]</div><div class="line">    g = sqrt(sum(x^<span class="number">2</span>))</div><div class="line">    v = x</div><div class="line">    v[k] = x[k] + sign(x[k,<span class="number">1</span>])*g</div><div class="line">    </div><div class="line">    s = sqrt(sum(v^<span class="number">2</span>))</div><div class="line">    <span class="keyword">if</span> (s != <span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">      u = v / s</div><div class="line">      R = R - <span class="number">2</span> * u %*% t(u) %*% R</div><div class="line">      Q = Q - <span class="number">2</span> * u %*% t(u) %*% Q</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  result &lt;- list(t(Q), R)</div><div class="line">  names(result) &lt;- c(<span class="string">"Q"</span>, <span class="string">"R"</span>)</div><div class="line">  result</div><div class="line">&#125;</div><div class="line"></div><div class="line">mySweep &lt;- <span class="keyword">function</span>(A, m)</div><div class="line">&#123;</div><div class="line">    n &lt;- dim(A)[<span class="number">1</span>]</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> (k <span class="keyword">in</span> <span class="number">1</span>:m)</div><div class="line">    &#123;</div><div class="line">      <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:n)</div><div class="line">        <span class="keyword">for</span> (j <span class="keyword">in</span> <span class="number">1</span>:n)</div><div class="line">          <span class="keyword">if</span> (i!=k  &amp; j!=k)</div><div class="line">            A[i,j] &lt;- A[i,j] - A[i,k]*A[k,j]/A[k,k]</div><div class="line">      </div><div class="line">      <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:n)</div><div class="line">        <span class="keyword">if</span> (i!=k)</div><div class="line">          A[i,k] &lt;- A[i,k]/A[k,k]</div><div class="line">      </div><div class="line">      <span class="keyword">for</span> (j <span class="keyword">in</span> <span class="number">1</span>:n)</div><div class="line">        <span class="keyword">if</span> (j!=k)</div><div class="line">          A[k,j] &lt;- A[k,j]/A[k,k]</div><div class="line">      </div><div class="line">      A[k,k] &lt;- - <span class="number">1</span>/A[k,k]</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span>(A)</div><div class="line">&#125;</div><div class="line"></div><div class="line">mylm1 &lt;- <span class="keyword">function</span>(X,Y)</div><div class="line">&#123;</div><div class="line">  n = nrow(X)</div><div class="line">  m = ncol(X)</div><div class="line">  Z = cbind(rep(<span class="number">1</span>, n), X, Y)</div><div class="line">  R = myqr(Z)$R</div><div class="line">  R1 = R[<span class="number">1</span>:(m+<span class="number">1</span>), <span class="number">1</span>:(m+<span class="number">1</span>)]</div><div class="line">  Y1 = R[<span class="number">1</span>:(m+<span class="number">1</span>), m+<span class="number">2</span>]</div><div class="line">  beta = solve(R1, Y1)</div><div class="line">  <span class="keyword">return</span>(beta)</div><div class="line">&#125;</div><div class="line"></div><div class="line">mylm2 &lt;- <span class="keyword">function</span>(X,Y)</div><div class="line">&#123;</div><div class="line">  col=ncol(X)</div><div class="line">  row=nrow(X)</div><div class="line">  Z=cbind(rep(<span class="number">1</span>,row),X,Y)</div><div class="line">  A=t(Z)%*%Z</div><div class="line">  S=mySweep(A,col+<span class="number">1</span>)</div><div class="line">  beta_hat=S[<span class="number">1</span>:(col+<span class="number">2</span>),col+<span class="number">2</span>]</div><div class="line">  <span class="keyword">return</span>(beta_hat)</div><div class="line">&#125;</div><div class="line"></div><div class="line">b&lt;- read.csv(<span class="string">"state_x77.csv"</span>)</div><div class="line">X=cbind(b$Population,b$Income,b$Illiteracy ,b$Murder,b$HS.Grad , b$Frost , b$Area , b$Density)</div><div class="line">Y=b$Life.Exp</div><div class="line"></div><div class="line">mylm1(X,Y)</div><div class="line">   mylm2(X,Y)</div><div class="line"></div><div class="line">lm(Y~X)</div></pre></td></tr></table></figure>
+
+            <div class="clearfix"></div>
+            <hr class="nogutter">
+        </div>
+        <nav class="pagination" role="pagination">
+    
+    <a class="pull-left" href="/2015/10/20/Titanic/" style="float: left;">
+        ← kaggle比赛之Titanic沉船事件
+    </a>
+    
+    
+    <a class="pull-right" href="/2015/10/08/矩阵求逆/">
+        矩阵求逆（sweep operator & Gauss Jordan elimination） →
+    </a>
+    
+</nav>
+
+        <div class="duoshuo">
+<div class="ds-thread" data-thread-key="2015/10/19/多元线性回归/" data-title="多元线性回归" data-url="http://yoursite.com/2015/10/19/多元线性回归/"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"nichunquan"};
+(function() {
+	var ds = document.createElement('script');
+	ds.type = 'text/javascript';ds.async = true;
+	ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+	ds.charset = 'UTF-8';
+	(document.getElementsByTagName('head')[0] 
+	 || document.getElementsByTagName('body')[0]).appendChild(ds);
+})();
+</script>
+</div>
+    </div>
+</section>
+
+
+      
+<!-- ============================ Footer =========================== -->
+
+<footer>
+    <div class="container">
+            <div class="copy">
+                <p>
+                    &copy; 2014<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Content By nichunquan. All Rights Reserved.
+                </p>
+                <p>Theme By <a href="//go.kieran.top" style="color: #767D84">Kieran</a></p>
+            </div>
+            <div class="social">
+                <ul>
+                    
+                    <li><a href="https://github.com/" title="Github" target="_blank"><i class="icon-github"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://twitter.com/" title="Twitter" target="_blank"><i class="icon-twitter"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://www.facebook.com/" title="Facebook" target="_blank"><i class="icon-facebook"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="https://google.com/" title="Google-Plus" target="_blank"><i class="icon-google-plus"></i></a>&nbsp;</li>
+                    
+                    
+                    <li><a href="http://weibo.com/" title="Sina-Weibo" target="_blank"><i class="icon-sina-weibo"></i></a>&nbsp;</li>
+                    
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+</footer>
+
+<!-- ============================ END Footer =========================== -->
+      <!-- Load our scripts -->
+        
+<!-- Resizable 'on-demand' full-height hero -->
+<script type="text/javascript">
+    
+    var resizeHero = function () {
+        var hero = $(".cover,.heightblock"),
+            window1 = $(window);
+        hero.css({
+            "height": window1.height()
+        });
+    };
+    
+    resizeHero();
+    
+    $(window).resize(function () {
+        resizeHero();
+    });
+</script>
+<script src="/js/plugins.min.js"></script><!-- Bootstrap core and concatenated plugins always load here -->
+<script src="/js/jquery.flexslider-min.js"></script><!-- Flexslider plugin -->
+<script src="/js/scripts.js"></script><!-- Theme scripts -->
+
+<!-- Initiate flexslider plugin -->
+<script type="text/javascript">
+    $(document).ready(function($) {
+      $('.flexslider').flexslider({
+        animation: "fade",
+        prevText: "",
+        nextText: "",
+        directionNav: true
+      });
+    });
+</script>
+
+</body>
+</html>

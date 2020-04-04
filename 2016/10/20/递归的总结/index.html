@@ -37,7 +37,7 @@ dfs(s,tmp,index,res)
 1，leetcode#93
 
 Restore IP Address">
-<meta property="og:updated_time" content="2020-04-04T01:59:58.199Z">
+<meta property="og:updated_time" content="2020-04-04T02:03:39.945Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="递归的思考">
 <meta name="twitter:description" content="递归想了想差不多能够分清楚有哪些题型了
@@ -271,31 +271,7 @@ ga('send', 'pageview');
 <p>输入: “25525511135”</p>
 <p>输出: [“255.255.11.135”, “255.255.111.35”]</p>
 </blockquote>
-<p>‘’‘python</p>
-<pre><code>class Solution(object):
-    def restoreIpAddresses(self, s):
-        &quot;&quot;&quot;
-        :type s: str
-        :rtype: List[str]
-        &quot;&quot;&quot;
-        def dfs(s,tmp,indx, res):
-            if indx==4 and s==&apos;&apos;:
-                res.append(tmp[:-1])
-                return
-            if indx==4:
-                return
-            for i in range(3):
-                if i==0 and len(s)&gt;0:
-                    dfs(s[1:],tmp+s[:1]+&apos;.&apos;,indx+1,res)
-                if i==1 and len(s)&gt;1 and s[0]!=&apos;0&apos;:
-                    dfs(s[2:],tmp+s[:2]+&apos;.&apos;,indx+1,res)
-                if i==2 and len(s)&gt;2 and int(s[:3])&lt;256 and s[0]!=&apos;0&apos;:
-            dfs(s[3:],tmp+s[:3]+&apos;.&apos;,indx+1,res)
-        res = []
-
-        dfs(s,&apos;&apos;,0,res)
-        return res
-</code></pre><p>’‘’</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">restoreIpAddresses</span><span class="params">(self, s)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type s: str</div><div class="line">        :rtype: List[str]</div><div class="line">        """</div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dfs</span><span class="params">(s,tmp,indx, res)</span>:</span></div><div class="line">		    <span class="keyword">if</span> indx==<span class="number">4</span> <span class="keyword">and</span> s==<span class="string">''</span>:</div><div class="line">		        res.append(tmp[:<span class="number">-1</span>])</div><div class="line">		        <span class="keyword">return</span></div><div class="line">		    <span class="keyword">if</span> indx==<span class="number">4</span>:</div><div class="line">		        <span class="keyword">return</span></div><div class="line">		    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">		        <span class="keyword">if</span> i==<span class="number">0</span> <span class="keyword">and</span> len(s)&gt;<span class="number">0</span>:</div><div class="line">		            dfs(s[<span class="number">1</span>:],tmp+s[:<span class="number">1</span>]+<span class="string">'.'</span>,indx+<span class="number">1</span>,res)</div><div class="line">		        <span class="keyword">if</span> i==<span class="number">1</span> <span class="keyword">and</span> len(s)&gt;<span class="number">1</span> <span class="keyword">and</span> s[<span class="number">0</span>]!=<span class="string">'0'</span>:</div><div class="line">		            dfs(s[<span class="number">2</span>:],tmp+s[:<span class="number">2</span>]+<span class="string">'.'</span>,indx+<span class="number">1</span>,res)</div><div class="line">		        <span class="keyword">if</span> i==<span class="number">2</span> <span class="keyword">and</span> len(s)&gt;<span class="number">2</span> <span class="keyword">and</span> int(s[:<span class="number">3</span>])&lt;<span class="number">256</span> <span class="keyword">and</span> s[<span class="number">0</span>]!=<span class="string">'0'</span>:</div><div class="line">            dfs(s[<span class="number">3</span>:],tmp+s[:<span class="number">3</span>]+<span class="string">'.'</span>,indx+<span class="number">1</span>,res)</div><div class="line">        res = []</div><div class="line">        </div><div class="line">        dfs(s,<span class="string">''</span>,<span class="number">0</span>,res)</div><div class="line">        <span class="keyword">return</span> res</div></pre></td></tr></table></figure>
 
     
   </div>

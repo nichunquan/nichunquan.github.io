@@ -17,38 +17,35 @@
 
   <meta name="description" content="递归想了想差不多能够分清楚有哪些题型了
 1）和回溯相关
-2）深度优先搜索
-IP地址的可能排列
+1.深度优先搜索IP地址的可能排列
 dfs(s,tmp,index,res)
 一般都是这样的格式，就是，第一个参数是输入原始参数，比如数啊，string啊之类的，tmp是临时的结果组合，index是组合到了什么程度，就是跳出递归的条件，最后res是存放每次递归的tmp结果的
 1，leetcode#93
 
-Restore IP Address">
+Restore IP Addresse">
 <meta property="og:type" content="article">
 <meta property="og:title" content="递归的思考">
 <meta property="og:url" content="http://yoursite.com/2016/10/20/递归的总结/index.html">
 <meta property="og:site_name" content="nichunquan">
 <meta property="og:description" content="递归想了想差不多能够分清楚有哪些题型了
 1）和回溯相关
-2）深度优先搜索
-IP地址的可能排列
+1.深度优先搜索IP地址的可能排列
 dfs(s,tmp,index,res)
 一般都是这样的格式，就是，第一个参数是输入原始参数，比如数啊，string啊之类的，tmp是临时的结果组合，index是组合到了什么程度，就是跳出递归的条件，最后res是存放每次递归的tmp结果的
 1，leetcode#93
 
-Restore IP Address">
-<meta property="og:updated_time" content="2020-04-04T02:24:14.695Z">
+Restore IP Addresse">
+<meta property="og:updated_time" content="2020-04-04T15:30:08.076Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="递归的思考">
 <meta name="twitter:description" content="递归想了想差不多能够分清楚有哪些题型了
 1）和回溯相关
-2）深度优先搜索
-IP地址的可能排列
+1.深度优先搜索IP地址的可能排列
 dfs(s,tmp,index,res)
 一般都是这样的格式，就是，第一个参数是输入原始参数，比如数啊，string啊之类的，tmp是临时的结果组合，index是组合到了什么程度，就是跳出递归的条件，最后res是存放每次递归的tmp结果的
 1，leetcode#93
 
-Restore IP Address">
+Restore IP Addresse">
 
   
 
@@ -216,6 +213,11 @@ ga('send', 'pageview');
 </div>
 
 
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-深度优先搜索"><span class="toc-text">1.深度优先搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-比较巧妙的递归，在递归中设置激活按钮"><span class="toc-text">2.比较巧妙的递归，在递归中设置激活按钮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-回溯法"><span class="toc-text">3.回溯法</span></a></li></ol>
+  </div>
+
 
 
 <div class="content content-post CENTER">
@@ -261,8 +263,7 @@ ga('send', 'pageview');
     
       <p>递归想了想差不多能够分清楚有哪些题型了</p>
 <p>1）和回溯相关</p>
-<p>2）深度优先搜索</p>
-<p>IP地址的可能排列</p>
+<h3 id="1-深度优先搜索"><a href="#1-深度优先搜索" class="headerlink" title="1.深度优先搜索"></a>1.深度优先搜索</h3><p>IP地址的可能排列</p>
 <p>dfs(s,tmp,index,res)</p>
 <p>一般都是这样的格式，就是，第一个参数是输入原始参数，比如数啊，string啊之类的，tmp是临时的结果组合，index是组合到了什么程度，就是跳出递归的条件，最后res是存放每次递归的tmp结果的</p>
 <p>1，leetcode#93</p>
@@ -272,15 +273,22 @@ ga('send', 'pageview');
 <p>输出: [“255.255.11.135”, “255.255.111.35”]</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">restoreIpAddresses</span><span class="params">(self, s)</span>:</span></div><div class="line">        <span class="string">"""</span></div><div class="line">        :type s: str</div><div class="line">        :rtype: List[str]</div><div class="line">        """</div><div class="line">        <span class="function"><span class="keyword">def</span> <span class="title">dfs</span><span class="params">(s,tmp,indx, res)</span>:</span></div><div class="line">		    <span class="keyword">if</span> indx==<span class="number">4</span> <span class="keyword">and</span> s==<span class="string">''</span>:</div><div class="line">		        res.append(tmp[:<span class="number">-1</span>])</div><div class="line">		        <span class="keyword">return</span></div><div class="line">		    <span class="keyword">if</span> indx==<span class="number">4</span>:</div><div class="line">		        <span class="keyword">return</span></div><div class="line">		    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</div><div class="line">		        <span class="keyword">if</span> i==<span class="number">0</span> <span class="keyword">and</span> len(s)&gt;<span class="number">0</span>:</div><div class="line">		            dfs(s[<span class="number">1</span>:],tmp+s[:<span class="number">1</span>]+<span class="string">'.'</span>,indx+<span class="number">1</span>,res)</div><div class="line">		        <span class="keyword">if</span> i==<span class="number">1</span> <span class="keyword">and</span> len(s)&gt;<span class="number">1</span> <span class="keyword">and</span> s[<span class="number">0</span>]!=<span class="string">'0'</span>:</div><div class="line">		            dfs(s[<span class="number">2</span>:],tmp+s[:<span class="number">2</span>]+<span class="string">'.'</span>,indx+<span class="number">1</span>,res)</div><div class="line">		        <span class="keyword">if</span> i==<span class="number">2</span> <span class="keyword">and</span> len(s)&gt;<span class="number">2</span> <span class="keyword">and</span> int(s[:<span class="number">3</span>])&lt;<span class="number">256</span> <span class="keyword">and</span> s[<span class="number">0</span>]!=<span class="string">'0'</span>:</div><div class="line">            dfs(s[<span class="number">3</span>:],tmp+s[:<span class="number">3</span>]+<span class="string">'.'</span>,indx+<span class="number">1</span>,res)</div><div class="line">        res = []</div><div class="line">        </div><div class="line">        dfs(s,<span class="string">''</span>,<span class="number">0</span>,res)</div><div class="line">        <span class="keyword">return</span> res</div></pre></td></tr></table></figure>
-<p>2.比较巧妙的递归，在递归中设置激活按钮</p>
-<p>1，leetcode#695</p>
+<h3 id="2-比较巧妙的递归，在递归中设置激活按钮"><a href="#2-比较巧妙的递归，在递归中设置激活按钮" class="headerlink" title="2.比较巧妙的递归，在递归中设置激活按钮"></a>2.比较巧妙的递归，在递归中设置激活按钮</h3><p>1，leetcode#695</p>
 <blockquote>
 <p>Max Area of Island<br>Given a non-empty 2D array grid of 0’s and 1’s, an island is a group of 1’s (representing land) connected 4-directionally (horizontal or vertical.) You may assume all four edges of the grid are surrounded by water.</p>
 <p>Find the maximum area of an island in the given 2D array. (If there is no island, the maximum area is 0.)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&gt;[0,0,0,0,0,0,0,1,1,1,0,0,0],</div><div class="line">&gt;[0,1,1,0,1,0,0,0,0,0,0,0,0],</div><div class="line">&gt;[0,1,0,0,1,1,0,0,1,0,1,0,0],</div><div class="line">&gt;[0,1,0,0,1,1,0,0,1,1,1,0,0],</div><div class="line">&gt;[0,0,0,0,0,0,0,0,0,0,1,0,0],</div><div class="line">&gt;[0,0,0,0,0,0,0,1,1,1,0,0,0],</div><div class="line">&gt;[0,0,0,0,0,0,0,1,1,0,0,0,0]]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[[0,0,1,0,0,0,0,1,0,0,0,0,0],</div><div class="line">[0,0,0,0,0,0,0,1,1,1,0,0,0],</div><div class="line">[0,1,1,0,1,0,0,0,0,0,0,0,0],</div><div class="line">[0,1,0,0,1,1,0,0,1,0,1,0,0],</div><div class="line">[0,1,0,0,1,1,0,0,1,1,1,0,0],</div><div class="line">[0,0,0,0,0,0,0,0,0,0,1,0,0],</div><div class="line">[0,0,0,0,0,0,0,1,1,1,0,0,0],</div><div class="line">[0,0,0,0,0,0,0,1,1,0,0,0,0]]</div></pre></td></tr></table></figure>
 <p>return 6</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">maxAreaOfIsland</span><span class="params">(self, grid)</span>:</span></div><div class="line">     m, n = len(grid), len(grid[<span class="number">0</span>])</div><div class="line"></div><div class="line">     <span class="function"><span class="keyword">def</span> <span class="title">dfs</span><span class="params">(i, j)</span>:</span></div><div class="line">         <span class="keyword">if</span> <span class="number">0</span> &lt;= i &lt; m <span class="keyword">and</span> <span class="number">0</span> &lt;= j &lt; n <span class="keyword">and</span> grid[i][j]:</div><div class="line">             grid[i][j] = <span class="number">0</span></div><div class="line">             <span class="keyword">return</span> <span class="number">1</span> + dfs(i - <span class="number">1</span>, j) + dfs(i, j + <span class="number">1</span>) + dfs(i + <span class="number">1</span>, j) + dfs(i, j - <span class="number">1</span>)</div><div class="line">         <span class="keyword">return</span> <span class="number">0</span></div><div class="line"></div><div class="line">     areas = [dfs(i, j) <span class="keyword">for</span> i <span class="keyword">in</span> range(m) <span class="keyword">for</span> j <span class="keyword">in</span> range(n) <span class="keyword">if</span> grid[i][j]]</div><div class="line">     <span class="keyword">return</span> max(areas) <span class="keyword">if</span> areas <span class="keyword">else</span> <span class="number">0</span></div></pre></td></tr></table></figure>
+<p>这一题需要流程的想象，比如上面例子中遍历到grid（0，6），他会先关闭递归的触发条件，然后进入递归，这样就不会重复递归</p>
+<h3 id="3-回溯法"><a href="#3-回溯法" class="headerlink" title="3.回溯法"></a>3.回溯法</h3><p>比如比较常见的permutation</p>
+<blockquote>
+<p>input 123</p>
+<p>output [123,132,213,231,312,312]</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">backtrack</span><span class="params">(res,templist,nums)</span>:</span></div><div class="line">    <span class="keyword">if</span>(len(templist) == len(nums)):</div><div class="line">        res.append(templist[:])</div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> nums:</div><div class="line"></div><div class="line">            <span class="keyword">if</span>(i <span class="keyword">in</span> templist): <span class="comment">#如果在当前排列中已经有i了，就continue，相当于分支限界，即不对当前节点子树搜寻了</span></div><div class="line">                <span class="keyword">continue</span></div><div class="line">            templist.append(i)</div><div class="line">            self.backtrack(rtlist,templist,nums)</div><div class="line">            templist.pop() <span class="comment">#把结尾的元素用nums中的下一个值替换掉，遍历下一颗子树</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">permute</span><span class="params">(nums)</span>:</span></div><div class="line">    rtlist = []</div><div class="line">    templist = []</div><div class="line">    self.backtrack(rtlist,templist,nums)</div><div class="line">    <span class="keyword">return</span> rtlist</div></pre></td></tr></table></figure>
+<p>采用回溯法一定要注意res.append的结果一定要是tmp的复制而不是，指针就是一定要加上[:]</p>
 
     
   </div>
